@@ -58,11 +58,6 @@ def home():
     return render_template('home.html')
 
 
-@app.route('/protect')
-@login_required
-def protect():
-    return "<h1> Solo los autenticados pueden entrar acá </h1>"
-
 def status_401(error):
     return redirect(url_for('login'))
 
