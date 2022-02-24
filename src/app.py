@@ -57,6 +57,16 @@ def logout():
 def home():
     return render_template('home.html')
 
+@app.route('/pagina1')
+@login_required
+def pagina1():
+    return render_template('pagina1.html')
+
+@app.route('/pagina2')
+@login_required
+def pagina2():
+    return render_template('pagina2.html')
+
 
 def status_401(error):
     return redirect(url_for('login'))
