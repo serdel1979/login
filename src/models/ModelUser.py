@@ -6,12 +6,12 @@ class ModelUser():
     def login(self,db,user):
         try:
             cursor = db.connection.cursor()
-            sql="""SELECT id, username, password, fullname FROM users 
+            sql="""SELECT id, username, password, fullname, tipo FROM users 
             WHERE username = '{}'""".format(user.username)
             cursor.execute(sql)
             row = cursor.fetchone()
             if row != None:
-                user = User(row[0],row[1],User.check_password(row[2],user.password),row[3])
+                user = User(row[0],row[1],User.check_password(row[2],user.password),row[3], row[4])
                 return user
             else:
                 return None
@@ -54,7 +54,7 @@ class ModelUser():
 
 
     @classmethod
-    def guardar_usuario(self,db,username,fullname,password):
+    def guardar_usuario(self,db,username,password,fullname):
         try:
             tipo = 2
             cursor = db.connection.cursor()

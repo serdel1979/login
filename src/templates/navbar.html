@@ -100,12 +100,23 @@
                                 Reports
                             </a>
                         </li>
+
+                        {% if tipo == 2 %}
                         <li class="nav-item">
                             <a class="nav-link" href="#">
                                 <span data-feather="layers"></span>
-                                Integrations
+                                Solicitar turno
                             </a>
                         </li>
+                        {% endif %}
+                        {% if tipo == 2 %}
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">
+                                <span data-feather="layers"></span>
+                                Ver turnos
+                            </a>
+                        </li>
+                        {% endif %}
                     </ul>
                 </div>
             </nav>

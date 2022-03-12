@@ -34,7 +34,7 @@ def login():
         if logged_user != None:
             if logged_user.password:
                 login_user(logged_user)
-                return redirect(url_for('home'))
+                return render_template('home.html',tipo = user.tipo)
             else:
                 flash("Datos incorrectos...")
                 return render_template('auth/login.html')
@@ -75,6 +75,10 @@ def registro():
 def guardar_usuario():
     if request.method=='POST':
         username = request.form['username']
+        user = ModelUser.get_by_username(db,username)
+        if user != None:
+            flash("El usuario ya existe...")
+            return render_template('registro.html')
         fullname = request.form['fullname']
         password = request.form['password1']
         password2 = request.form['password2']
