@@ -32,6 +32,37 @@ class ModelUser():
                 return User(row[0],row[1],None,row[2])
             else:
                 return None
+        except Exception as ex:
+            raise Exception(ex)
 
+    @classmethod
+    def get_by_username(self,db,username):
+        try:
+            cursor = db.connection.cursor()
+            sql="""SELECT id, username, fullname FROM users 
+            WHERE username = '{}'""".format(username)
+            cursor.execute(sql)
+            row = cursor.fetchone()
+            if row != None:
+                return User(row[0],row[1],None,row[2])
+            else:
+                return None
+        except Exception as ex:
+            raise Exception(ex)
+
+
+
+
+    @classmethod
+    def guardar_usuario(self,db,username,fullname,password):
+        try:
+            tipo = 2
+            cursor = db.connection.cursor()
+            password = User.genera_hash_password(password)
+            cursor.execute("INSERT INTO `users` (`id`,`username`,`password`,`fullname`,`tipo`) VALUES (NULL,'{}','{}','{}','{}')".format(username, password, fullname, tipo))
+            cursor.fetchone()
+            db.connection.commit()
+            cursor.close()
+            
         except Exception as ex:
             raise Exception(ex)
