@@ -2,9 +2,12 @@ from flask import Flask, flash, redirect, render_template, request, session, url
 from flask_mysqldb import MySQL
 from flask_wtf.csrf import CSRFProtect
 from config import config
+from models.ModelSolicitudes import ModelSolicitud
 from models.ModelUser import ModelUser
+from models.entities.Solicitud import Solicitud
 from models.entities.User import User
 from flask_login import LoginManager, login_user, logout_user, login_required
+from datetime import datetime
 
 from models.entities.Vacuna import Vacuna
 from models.ModelVacuna import ModelVacuna
@@ -38,6 +41,7 @@ def login():
             if logged_user.password:
                 login_user(logged_user)
                 session["tipo"]= logged_user.tipo
+                session["id_user"] = logged_user.id
                 return render_template('home.html',tipo = session["tipo"])
             else:
                 flash("Datos incorrectos...")
@@ -119,7 +123,6 @@ def guarda_edicion_vacuna(id):
     if request.method=='POST':
         vacuna = request.form['vacuna']
         cantidad = request.form['cantidad']
-        print("vacuna edicion ",id,vacuna,cantidad)
         ModelVacuna.guardar_edicion(db,id,vacuna,cantidad)
     return redirect(url_for('vacunas'))
 
@@ -130,13 +133,14 @@ def eliminar_vacuna(id):
     ModelVacuna.eliminar_vacuna(db,id)
     flash("Eliminada...")
     return redirect(url_for('vacunas'))
-    return render_template('form_agregar_vacuna.html', tipo = session["tipo"])
 
 
 @app.route('/agregar_vacuna')
 @login_required
 def agregar_vacuna():
     return render_template('form_agregar_vacuna.html', tipo = session["tipo"])  
+
+
 
 @app.route('/guarda_vacuna', methods=['GET','POST'])
 @login_required
@@ -149,9 +153,43 @@ def guardar_vacuna():
             return render_template('form_agregar_vacuna.html')
         cantidad = request.form['cantidad']
         ModelVacuna.guardar_vacuna(db,nvacuna,cantidad)
-    flash("Vacuna guardada...")
+        flash("Vacuna guardada...")
     return redirect(url_for('vacunas'))
     
+@app.route('/solicitar_turno/<int:id>')
+@login_required
+def guarda_solicitud_turno(id):
+    vacunas = []
+    id_vacuna = id
+    id_user = session["id_user"]
+    vacuna = ModelVacuna.get_by_id(db,id)
+    vacuna = vacuna.vacuna
+    fecha_solicitud = datetime.now()
+    ModelSolicitud.guardar_solicitud(db,id_user,id_vacuna,vacuna,fecha_solicitud)
+    tabla = list(ModelVacuna.get_all(db))
+    for i in tabla:
+        vacunas.append(list(i))
+    flash("Solicitud aceptada!!...")
+    return render_template('solicitar_turno.html', tipo = session["tipo"], vacunas = vacunas)
+
+@app.route('/solicitar_turno')
+@login_required
+def solicitar_turno():
+    vacunas = []
+    tabla = list(ModelVacuna.get_all(db))
+    for i in tabla:
+        vacunas.append(list(i))
+    return render_template('solicitar_turno.html', tipo = session["tipo"], vacunas = vacunas)
+
+@app.route('/mis_turnos')
+@login_required
+def mis_turnos():
+    id = session["id_user"]
+    solicitudes = []
+    tabla = list(ModelSolicitud.get_solicitudes_usuario(db,id))
+    for i in tabla:
+        solicitudes.append(list(i))
+    return render_template('mis_turnos.html', tipo = session["tipo"], solicitudes = solicitudes)
 
 
 def status_401(error):

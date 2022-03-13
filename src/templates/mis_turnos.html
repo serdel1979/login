@@ -1,0 +1,36 @@
+{% extends './navbar.html' %}
+
+{% block tittle %}Solicitudes{% endblock %}
+
+{% block body %}
+
+
+
+<table class="table">
+    <thead>
+        <tr>
+            <th scope="col">Vacuna</th>
+            <th scope="col">Fecha de solicitud</th>
+
+            <th scope="col">Fecha de turno</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for solicitud in solicitudes %}
+        <tr>
+            <th scope="row">{{ solicitud[2] }}</th>
+            <td>{{ solicitud[4] }}</td>
+            <td>
+                {% if solicitud[5] == None %}
+                <p style="color:#FF0000" ;>Sin turno</p>
+                {% else %}
+                <p style="color:#00ff37" ;>{{ solicitud[5] }}</p>
+                {% endif %}
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+
+{% endblock %}
