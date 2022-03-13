@@ -71,18 +71,6 @@
                 <div class="position-sticky pt-3">
                     <ul class="nav flex-column">
                         <li class="nav-item">
-                            <a class="nav-link active" aria-current="page" href="#">
-                                <span data-feather="home"></span>
-                                Dashboard
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="#">
-                                <span data-feather="file"></span>
-                                Orders
-                            </a>
-                        </li>
-                        <li class="nav-item">
                             <a class="nav-link" href="{{ url_for('pagina1')}}">
                                 <span data-feather="shopping-cart"></span>
                                 Página 1
@@ -94,12 +82,22 @@
                                 Página 2
                             </a>
                         </li>
+                        {% if tipo == 1 %}
                         <li class="nav-item">
                             <a class="nav-link" href="#">
-                                <span data-feather="bar-chart-2"></span>
-                                Reports
+                                <span data-feather="layers"></span>
+                                Ver solicitudes
                             </a>
                         </li>
+                        {% endif %}
+                        {% if tipo == 1 %}
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ url_for('vacunas')}}">
+                                <span data-feather="layers"></span>
+                                Vacunas
+                            </a>
+                        </li>
+                        {% endif %}
 
                         {% if tipo == 2 %}
                         <li class="nav-item">
@@ -113,7 +111,7 @@
                         <li class="nav-item">
                             <a class="nav-link" href="#">
                                 <span data-feather="layers"></span>
-                                Ver turnos
+                                Mis turnos
                             </a>
                         </li>
                         {% endif %}

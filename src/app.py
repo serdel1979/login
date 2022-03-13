@@ -1,10 +1,13 @@
-from flask import Flask, flash, redirect, render_template, request, url_for
+from flask import Flask, flash, redirect, render_template, request, session, url_for
 from flask_mysqldb import MySQL
 from flask_wtf.csrf import CSRFProtect
 from config import config
 from models.ModelUser import ModelUser
 from models.entities.User import User
 from flask_login import LoginManager, login_user, logout_user, login_required
+
+from models.entities.Vacuna import Vacuna
+from models.ModelVacuna import ModelVacuna
 
 app=Flask(__name__)
 
@@ -34,7 +37,8 @@ def login():
         if logged_user != None:
             if logged_user.password:
                 login_user(logged_user)
-                return render_template('home.html',tipo = user.tipo)
+                session["tipo"]= logged_user.tipo
+                return render_template('home.html',tipo = session["tipo"])
             else:
                 flash("Datos incorrectos...")
                 return render_template('auth/login.html')
@@ -55,7 +59,7 @@ def logout():
 @app.route('/home')
 @login_required
 def home():
-    return render_template('home.html')
+    return render_template('home.html',tipo = session["tipo"])
 
 @app.route('/pagina1')
 @login_required
@@ -68,10 +72,12 @@ def pagina2():
     return render_template('pagina2.html')
 
 @app.route('/registro')
+@login_required
 def registro():
     return render_template('registro.html')
 
 @app.route('/guarda_usuario', methods=['GET','POST'])
+@login_required
 def guardar_usuario():
     if request.method=='POST':
         username = request.form['username']
@@ -90,6 +96,62 @@ def guardar_usuario():
         return redirect(url_for('login'))
     else:
         return redirect(url_for('login'))
+    
+
+@app.route('/vacunas')
+@login_required
+def vacunas():
+    vacunas = []
+    tabla = list(ModelVacuna.get_all(db))
+    for i in tabla:
+        vacunas.append(list(i))
+    print(vacunas)
+    return render_template('vacunas.html', tipo = session["tipo"], vacunas = vacunas)
+
+@app.route('/vacuna/<int:id>')
+@login_required
+def editarVacuna(id):
+    vacuna = ModelVacuna.get_by_id(db,id)
+    return render_template('editar_vacuna.html', tipo = session["tipo"], vacuna = vacuna, id = id)
+
+@app.route('/guarda_edicion_vacuna/<int:id>', methods=['GET','POST'])
+@login_required
+def guarda_edicion_vacuna(id):
+    if request.method=='POST':
+        vacuna = request.form['vacuna']
+        cantidad = request.form['cantidad']
+        print("vacuna edicion ",id,vacuna,cantidad)
+        ModelVacuna.guardar_edicion(db,id,vacuna,cantidad)
+    return redirect(url_for('vacunas'))
+
+
+@app.route('/eliminar_vacuna/<int:id>', methods=['GET','POST'])
+@login_required
+def eliminar_vacuna(id):
+    ModelVacuna.eliminar_vacuna(db,id)
+    flash("Eliminada...")
+    return redirect(url_for('vacunas'))
+    return render_template('form_agregar_vacuna.html', tipo = session["tipo"])
+
+
+@app.route('/agregar_vacuna')
+@login_required
+def agregar_vacuna():
+    return render_template('form_agregar_vacuna.html', tipo = session["tipo"])  
+
+@app.route('/guarda_vacuna', methods=['GET','POST'])
+@login_required
+def guardar_vacuna():
+    if request.method=='POST':
+        nvacuna = request.form['vacuna']
+        vacuna = ModelVacuna.get_by_nombre_vacuna(db,nvacuna)
+        if vacuna != None:
+            flash("La vacuna ya existe!!!...")
+            return render_template('form_agregar_vacuna.html')
+        cantidad = request.form['cantidad']
+        ModelVacuna.guardar_vacuna(db,nvacuna,cantidad)
+    flash("Vacuna guardada...")
+    return redirect(url_for('vacunas'))
     
 
 
