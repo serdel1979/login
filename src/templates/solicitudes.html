@@ -4,9 +4,11 @@
 
 {% block body %}
 
-<h2>Mis solicitud de turnos</h2>
-<br>
-<br>
+<div>
+    <h2>Listado de solicitud de turnos</h2>
+    <br>
+    <br>
+</div>
 
 <table class="table">
     <thead>
@@ -15,6 +17,7 @@
             <th scope="col">Fecha de solicitud</th>
 
             <th scope="col">Fecha de turno</th>
+            <th scope="col">Acción</th>
         </tr>
     </thead>
     <tbody>
@@ -28,6 +31,12 @@
                 {% else %}
                 <p style="color:#00ff37" ;>{{ solicitud[5] }}</p>
                 {% endif %}
+            </td>
+            <td>
+                <button type="button" class="btn btn-primary"
+                    onclick="window.location.href=''">Asignar</button>
+                <button type="button" class="btn btn-primary"
+                    onclick="window.location.href=''">Descartar</button>
             </td>
         </tr>
         {% endfor %}

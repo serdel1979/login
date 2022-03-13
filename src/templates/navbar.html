@@ -70,21 +70,10 @@
             <nav id="sidebarMenu" class="col-md-3 col-lg-2 d-md-block bg-light sidebar collapse">
                 <div class="position-sticky pt-3">
                     <ul class="nav flex-column">
-                        <li class="nav-item">
-                            <a class="nav-link" href="{{ url_for('pagina1')}}">
-                                <span data-feather="shopping-cart"></span>
-                                Página 1
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="{{ url_for('pagina2')}}">
-                                <span data-feather="users"></span>
-                                Página 2
-                            </a>
-                        </li>
+
                         {% if tipo == 1 %}
                         <li class="nav-item">
-                            <a class="nav-link" href="#">
+                            <a class="nav-link" href="/ver_solicitudes">
                                 <span data-feather="layers"></span>
                                 Ver solicitudes
                             </a>

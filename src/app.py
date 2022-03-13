@@ -65,15 +65,6 @@ def logout():
 def home():
     return render_template('home.html',tipo = session["tipo"])
 
-@app.route('/pagina1')
-@login_required
-def pagina1():
-    return render_template('pagina1.html')
-
-@app.route('/pagina2')
-@login_required
-def pagina2():
-    return render_template('pagina2.html')
 
 @app.route('/registro')
 def registro():
@@ -190,6 +181,13 @@ def mis_turnos():
     for i in tabla:
         solicitudes.append(list(i))
     return render_template('mis_turnos.html', tipo = session["tipo"], solicitudes = solicitudes)
+
+
+@app.route('/ver_solicitudes')
+@login_required
+def ver_solicitudes():
+    solicitudes=ModelSolicitud.get_all(db)
+    return render_template('solicitudes.html', tipo = session["tipo"], solicitudes = solicitudes)
 
 
 def status_401(error):
