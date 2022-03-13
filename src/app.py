@@ -72,7 +72,6 @@ def pagina2():
     return render_template('pagina2.html')
 
 @app.route('/registro')
-@login_required
 def registro():
     return render_template('registro.html')
 
