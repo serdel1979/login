@@ -5,11 +5,11 @@ from flask_login import UserMixin
 
 
 class User(UserMixin):
-    def __init__(self, id, username, password, fullname="", tipo=2):
+    def __init__(self, id, username, password, nombre="", tipo=2):
         self.id = id
         self.username = username
         self.password = password
-        self.fullname = fullname
+        self.nombre = nombre
         self.tipo = tipo
         
     @classmethod

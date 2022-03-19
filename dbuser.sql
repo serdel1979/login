@@ -59,7 +59,7 @@ CREATE TABLE `users` (
   `id` int(11) NOT NULL,
   `username` varchar(100) NOT NULL,
   `password` varchar(150) NOT NULL,
-  `fullname` varchar(150) DEFAULT NULL,
+  `nombre` varchar(150) DEFAULT NULL,
   `tipo` int(10) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
@@ -67,7 +67,7 @@ CREATE TABLE `users` (
 -- Volcado de datos para la tabla `users`
 --
 
-INSERT INTO `users` (`id`, `username`, `password`, `fullname`, `tipo`) VALUES
+INSERT INTO `users` (`id`, `username`, `password`, `nombre`, `tipo`) VALUES
 (1, 'admin', 'pbkdf2:sha256:260000$OTwHNAW4lq68Akwz$38d486f50471c5963a9efdacca752f4a3635eed1d70187847016bf59b9c52703', 'admin admin', 1),
 (21, 'pipo', 'pbkdf2:sha256:260000$tKRcTtOFckc7tgq3$da90318704056a1a8be1ded4b2ec9d49b000866e81e5dce6251ce31f28d43e70', 'pipo', 2),
 (24, 'pepe', 'pbkdf2:sha256:260000$C15aWWlug5Zpa79E$d190bf2d3192f45282f79ffa85180cffd2d072b40fe69cfe76ed335a77134a01', 'sapo pepe', 2),

@@ -31,14 +31,14 @@ CREATE TABLE `users` (
   `id` int(11) NOT NULL,
   `username` varchar(100) NOT NULL,
   `password` varchar(150) NOT NULL,
-  `fullname` varchar(150) DEFAULT NULL
+  `nombre` varchar(150) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Volcado de datos para la tabla `users`
 --
 
-INSERT INTO `users` (`id`, `username`, `password`, `fullname`) VALUES
+INSERT INTO `users` (`id`, `username`, `password`, `nombre`) VALUES
 (1, 'admin', 'pbkdf2:sha256:260000$OTwHNAW4lq68Akwz$38d486f50471c5963a9efdacca752f4a3635eed1d70187847016bf59b9c52703', 'admin admin');
 
 --

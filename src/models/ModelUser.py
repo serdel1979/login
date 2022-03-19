@@ -6,7 +6,7 @@ class ModelUser():
     def login(self,db,user):
         try:
             cursor = db.connection.cursor()
-            sql="""SELECT id, username, password, fullname, tipo FROM users 
+            sql="""SELECT id, username, password, nombre, tipo FROM users 
             WHERE username = '{}'""".format(user.username)
             cursor.execute(sql)
             row = cursor.fetchone()
@@ -24,7 +24,7 @@ class ModelUser():
     def get_by_id(self,db,id):
         try:
             cursor = db.connection.cursor()
-            sql="""SELECT id, username, fullname FROM users 
+            sql="""SELECT id, username, nombre FROM users 
             WHERE id = '{}'""".format(id)
             cursor.execute(sql)
             row = cursor.fetchone()
@@ -39,7 +39,7 @@ class ModelUser():
     def get_by_username(self,db,username):
         try:
             cursor = db.connection.cursor()
-            sql="""SELECT id, username, fullname FROM users 
+            sql="""SELECT id, username, nombre FROM users 
             WHERE username = '{}'""".format(username)
             cursor.execute(sql)
             row = cursor.fetchone()
@@ -54,12 +54,12 @@ class ModelUser():
 
 
     @classmethod
-    def guardar_usuario(self,db,username,password,fullname):
+    def guardar_usuario(self,db,username,password,nombre):
         try:
             tipo = 2
             cursor = db.connection.cursor()
             password = User.genera_hash_password(password)
-            cursor.execute("INSERT INTO `users` (`id`,`username`,`password`,`fullname`,`tipo`) VALUES (NULL,'{}','{}','{}','{}')".format(username, password, fullname, tipo))
+            cursor.execute("INSERT INTO `users` (`id`,`username`,`password`,`nombre`,`tipo`) VALUES (NULL,'{}','{}','{}','{}')".format(username, password, nombre, tipo))
             cursor.fetchone()
             db.connection.commit()
             cursor.close()

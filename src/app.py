@@ -72,21 +72,20 @@ def registro():
 
 @app.route('/guarda_usuario', methods=['GET','POST'])
 def guarda_usuario():
-    print("NOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO")
     if request.method=='POST':
         username = request.form['username']
         user = ModelUser.get_by_username(db,username)
         if user != None:
             flash("El usuario ya existe...")
             return render_template('registro.html')
-        fullname = request.form['fullname']
+        nombre = request.form['nombre']
         password = request.form['password1']
         password2 = request.form['password2']
         if(password != password2):
             print("NOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO")
             flash("Las contraseñas no coinciden...")
             return redirect(url_for('registro'))
-        ModelUser.guardar_usuario(db,username,password,fullname)
+        ModelUser.guardar_usuario(db,username,password,nombre)
         flash("Registrado...")
         return redirect(url_for('login'))
     else:
