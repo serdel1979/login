@@ -12,6 +12,8 @@ from datetime import datetime
 from models.entities.Vacuna import Vacuna
 from models.ModelVacuna import ModelVacuna
 
+CUPOS_DIA = 3
+
 app=Flask(__name__)
 
 csrf=CSRFProtect()

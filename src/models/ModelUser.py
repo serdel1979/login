@@ -1,4 +1,5 @@
 from .entities.User import User
+from datetime import datetime
 
 
 class ModelUser():
@@ -54,12 +55,13 @@ class ModelUser():
 
 
     @classmethod
-    def guardar_usuario(self,db,username,password,nombre):
+    def guardar_usuario(self,db,username,password,nombre="",apellido="",dni="",telefono="",mail="",fecha_nacimiento=datetime.now(),tiene_dosis=1,factor_riesgo=0):
         try:
             tipo = 2
             cursor = db.connection.cursor()
             password = User.genera_hash_password(password)
-            cursor.execute("INSERT INTO `users` (`id`,`username`,`password`,`nombre`,`tipo`) VALUES (NULL,'{}','{}','{}','{}')".format(username, password, nombre, tipo))
+            cursor.execute("INSERT INTO `users` (`id`,`username`,`password`,`nombre`,`apellido`,`dni`,`telefono`,`mail`,`fecha_nacimiento`,`tiene_dosis`,`factor_riesgo`,`tipo`) VALUES (NULL,'{}','{}','{}','{}','{}','{}','{}','{}','{}','{}','{}')"
+            .format(username, password, nombre,apellido,dni,telefono,mail,fecha_nacimiento,tiene_dosis,factor_riesgo, tipo))
             cursor.fetchone()
             db.connection.commit()
             cursor.close()
