@@ -44,6 +44,7 @@ def login():
                 login_user(logged_user)
                 session["tipo"]= logged_user.tipo
                 session["id_user"] = logged_user.id
+                session["tipo"] = logged_user.tipo
                 return render_template('home.html',tipo = session["tipo"])
             else:
                 flash("Datos incorrectos...")
@@ -139,8 +140,7 @@ def editarVacuna(id):
 def guarda_edicion_vacuna(id):
     if request.method=='POST':
         vacuna = request.form['vacuna']
-        cantidad = request.form['cantidad']
-        ModelVacuna.guardar_edicion(db,id,vacuna,cantidad)
+        ModelVacuna.guardar_edicion(db,id,vacuna)
     return redirect(url_for('vacunas'))
 
 

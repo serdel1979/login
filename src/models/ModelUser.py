@@ -7,12 +7,12 @@ class ModelUser():
     def login(self,db,user):
         try:
             cursor = db.connection.cursor()
-            sql="""SELECT * FROM users 
+            sql="""SELECT id, username, password, nombre, apellido, dni, telefono, mail, fecha_nacimiento, tiene_dosis, factor_riesgo, tipo FROM users 
             WHERE username = '{}'""".format(user.username)
             cursor.execute(sql)
             row = cursor.fetchone()
             if row != None:
-                user = User(row[0],row[1],User.check_password(row[2],user.password),row[3], row[4],row[5],row[6],row[7],row[8],row[9])
+                user = User(row[0],row[1],User.check_password(row[2],user.password),row[3], row[4],row[5],row[6],row[7],row[8],tipo=row[11])
                 return user
             else:
                 return None

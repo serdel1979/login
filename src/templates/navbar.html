@@ -71,7 +71,7 @@
                 <div class="position-sticky pt-3">
                     <ul class="nav flex-column">
 
-                        {% if tipo == 1 %}
+                        {% if session["tipo"] == 1 %}
                         <li class="nav-item">
                             <a class="nav-link" href="/ver_solicitudes">
                                 <span data-feather="layers"></span>
@@ -79,7 +79,8 @@
                             </a>
                         </li>
                         {% endif %}
-                        {% if tipo == 1 %}
+                      
+                        {% if session["tipo"] == 1 %}
                         <li class="nav-item">
                             <a class="nav-link" href="{{ url_for('vacunas')}}">
                                 <span data-feather="layers"></span>
@@ -88,7 +89,7 @@
                         </li>
                         {% endif %}
 
-                        {% if tipo == 2 %}
+                        {% if session['tipo'] == 2 %}
                         <li class="nav-item">
                             <a class="nav-link" href="{{ url_for('solicitar_turno')}}">
                                 <span data-feather="layers"></span>
@@ -96,7 +97,7 @@
                             </a>
                         </li>
                         {% endif %}
-                        {% if tipo == 2 %}
+                        {% if session['tipo'] == 2 %}
 
                         <li class="nav-item">
                             <a class="nav-link" href="{{ url_for('mis_turnos')}}">

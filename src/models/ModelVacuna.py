@@ -6,7 +6,7 @@ class ModelVacuna():
     def get_all(self,db):
         try:
             cursor = db.connection.cursor()
-            sql="""SELECT id, vacuna, cantidad FROM vacunas""".format()
+            sql="""SELECT id, vacuna FROM vacunas""".format()
             cursor.execute(sql)
             vacunas = cursor.fetchall()
             if vacunas != None:
@@ -22,12 +22,12 @@ class ModelVacuna():
     def get_by_id(self,db,id):
         try:
             cursor = db.connection.cursor()
-            sql="""SELECT id, vacuna, cantidad FROM vacunas 
+            sql="""SELECT id, vacuna FROM vacunas 
             WHERE id = '{}'""".format(id)
             cursor.execute(sql)
             row = cursor.fetchone()
             if row != None:
-                return Vacuna(row[0],row[1],row[2])
+                return Vacuna(row[0],row[1])
             else:
                 return None
         except Exception as ex:
@@ -39,12 +39,12 @@ class ModelVacuna():
     def get_by_nombre_vacuna(self,db,vacuna):
         try:
             cursor = db.connection.cursor()
-            sql="""SELECT id, vacuna, cantidad FROM vacunas 
+            sql="""SELECT id, vacuna FROM vacunas 
             WHERE vacuna = '{}'""".format(vacuna)
             cursor.execute(sql)
             row = cursor.fetchone()
             if row != None:
-                return Vacuna(row[0],row[1],row[2])
+                return Vacuna(row[0],row[1])
             else:
                 return None
         except Exception as ex:
@@ -70,10 +70,10 @@ class ModelVacuna():
 
 
     @classmethod
-    def guardar_vacuna(self,db,vacuna,cantidad):
+    def guardar_vacuna(self,db,vacuna):
         try:
             cursor = db.connection.cursor()
-            cursor.execute("INSERT INTO `vacunas` (`id`,`vacuna`,`cantidad`) VALUES (NULL,'{}','{}')".format(vacuna,cantidad))
+            cursor.execute("INSERT INTO `vacunas` (`id`,`vacuna`) VALUES (NULL,'{}','{}')".format(vacuna))
             cursor.fetchone()
             db.connection.commit()
             cursor.close()
@@ -84,10 +84,10 @@ class ModelVacuna():
     #cur.execute("UPDATE vacunas SET vacuna=%s, cantidad=%s WHERE id=%s", (vacuna, cantidad, id))
 
     @classmethod
-    def guardar_edicion(self,db,id,vacuna,cantidad):
+    def guardar_edicion(self,db,id,vacuna):
         try:
             cursor = db.connection.cursor()
-            cursor.execute("UPDATE vacunas SET vacuna=%s, cantidad=%s WHERE id=%s", (vacuna, cantidad, id))
+            cursor.execute("UPDATE vacunas SET vacuna=%s WHERE id=%s", (vacuna, id))
             cursor.fetchone()
             db.connection.commit()
             cursor.close()

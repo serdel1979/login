@@ -13,7 +13,6 @@
         <tr>
             <th scope="col">ID</th>
             <th scope="col">Nombre</th>
-            <th scope="col">Cantidad</th>
             <th scope="col">Acciones</th>
         </tr>
     </thead>
@@ -22,7 +21,6 @@
         <tr>
             <th scope="row">{{ vacuna[0] }}</th>
             <td>{{ vacuna[1] }}</td>
-            <td>{{ vacuna[2] }}</td>
             <td>
                 <button type="button" class="btn btn-primary" onclick="window.location.href='/vacuna/{{vacuna[0]}}'">Editar</button>
                 <button type="button" class="btn btn-danger" onclick="window.location.href='/eliminar_vacuna/{{vacuna[0]}}'">Eliminar</button>
