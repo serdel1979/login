@@ -72,6 +72,9 @@ def home():
 def registro():
     return render_template('registro.html')
 
+
+# id, username, password, nombre, apellido, dni, telefono, mail, fecha_nacimiento, tiene_dosis, factor_riesgo 
+
 @app.route('/guarda_usuario', methods=['GET','POST'])
 def guarda_usuario():
     if request.method=='POST':
@@ -84,11 +87,32 @@ def guarda_usuario():
         password = request.form['password1']
         password2 = request.form['password2']
         if(password != password2):
-            print("NOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO")
             flash("Las contraseñas no coinciden...")
             return redirect(url_for('registro'))
-        ModelUser.guardar_usuario(db,username,password,nombre)
-        flash("Registrado...")
+        apellido = request.form['apellido']
+        dni = request.form['dni']
+        user = ModelUser.get_by_dni(db,dni)
+        if user != None:
+            flash("El dni ya se encuentra registrado...")
+            return render_template('registro.html')
+        telefono = request.form['telefono']
+        mail = request.form['mail']
+        user = ModelUser.get_by_mail(db,mail)
+        if user != None:
+            flash("El email ya se encuentra registrado...")
+            return render_template('registro.html')
+        fecha_nacimiento = request.form['fecha_nacimiento']
+        if 'tiene_dosis' in request.form:
+            tiene_dosis = 1
+        else:
+            tiene_dosis = 0
+        if 'factor_riesgo' in request.form:
+            factor_riesgo = 1
+        else:
+            factor_riesgo = 0
+        
+        ModelUser.guardar_usuario(db,username,password,nombre,apellido,dni,telefono,mail,fecha_nacimiento,tiene_dosis,factor_riesgo)
+        flash("Usuario registrado...")
         return redirect(url_for('login'))
     else:
         return redirect(url_for('login'))

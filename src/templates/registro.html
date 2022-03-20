@@ -16,6 +16,10 @@
         color: #2b2929;
     }
 
+    .form-check {
+        margin-top: 10px;
+        text-align: left;
+    }
 </style>
 {% endblock %}
 
@@ -55,7 +59,14 @@
                             <span class="col-md-1 col-md-offset-2 text-center"><i class="fa fa-user bigicon"></i></span>
                             <div class="col-md-8">
                                 <input style="margin-top: 10px;" id="nombre" name="nombre" type="text"
-                                    placeholder="Nombre completo" class="form-control">
+                                    placeholder="Nombre" class="form-control">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <span class="col-md-1 col-md-offset-2 text-center"><i class="fa fa-user bigicon"></i></span>
+                            <div class="col-md-8">
+                                <input style="margin-top: 10px;" id="apellido" name="apellido" type="text"
+                                    placeholder="Apellido" class="form-control">
                             </div>
                         </div>
                         <div class="form-group">
@@ -72,12 +83,49 @@
                                     placeholder="Repita su contraseña" class="form-control">
                             </div>
                         </div>
+                        <div class="form-group">
+                            <span class="col-md-1 col-md-offset-2 text-center"><i class="fa fa-user bigicon"></i></span>
+                            <div class="col-md-8">
+                                <input style="margin-top: 10px;" id="dni" name="dni" type="number" placeholder="DNI"
+                                    class="form-control">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <span class="col-md-1 col-md-offset-2 text-center"><i class="fa fa-user bigicon"></i></span>
+                            <div class="col-md-8">
+                                <input style="margin-top: 10px;" id="telefono" name="telefono" type="text"
+                                    placeholder="Teléfono" class="form-control">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <span class="col-md-1 col-md-offset-2 text-center"><i class="fa fa-user bigicon"></i></span>
+                            <div class="col-md-8">
+                                <input style="margin-top: 10px;" id="mail" name="mail" type="email"
+                                    placeholder="Email" class="form-control">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <span class="col-md-1 col-md-offset-2"><i class="fa fa-user bigicon"></i></span>
+                            <div class="col-md-8">
+                                <label class="form-check-label">Fecha de nacimiento</label>
+                                <input style="margin-top: 10px;" id="fecha_nacimiento" name="fecha_nacimiento"
+                                    type="date" placeholder="Fecha de nacimiento" class="form-control">
 
+                            </div>
+                        </div>
+                        <div class="form-check">
+                            <input type="checkbox" class="form-check-input" id="tiene_dosis" name="tiene_dosis">
+                            <label class="form-check-label" for="exampleCheck1">Tengo primer dósis de Covid</label>
+                        </div>
+                        <div class="form-check">
+                            <input type="checkbox" class="form-check-input" id="factor_riesgo" name="factor_riesgo">
+                            <label class="form-check-label" for="exampleCheck1">Soy paciente de riesgo</label>
+                        </div>
 
                         <div class="form-group">
                             <div class="col-md-12 text-center">
                                 <button type="button" class="btn btn-primary btn-lg" style="margin-top: 10px;"
-                                onclick="window.location.href='/login'">Volver</button>
+                                    onclick="window.location.href='/login'">Volver</button>
                                 <button id="login" style="margin-top: 10px;" type="submit"
                                     class="btn btn-primary btn-lg">Registrarse</button>
                             </div>

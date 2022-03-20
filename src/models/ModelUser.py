@@ -7,12 +7,12 @@ class ModelUser():
     def login(self,db,user):
         try:
             cursor = db.connection.cursor()
-            sql="""SELECT id, username, password, nombre, tipo FROM users 
+            sql="""SELECT * FROM users 
             WHERE username = '{}'""".format(user.username)
             cursor.execute(sql)
             row = cursor.fetchone()
             if row != None:
-                user = User(row[0],row[1],User.check_password(row[2],user.password),row[3], row[4])
+                user = User(row[0],row[1],User.check_password(row[2],user.password),row[3], row[4],row[5],row[6],row[7],row[8],row[9])
                 return user
             else:
                 return None
@@ -51,6 +51,37 @@ class ModelUser():
         except Exception as ex:
             raise Exception(ex)
 
+    @classmethod
+    def get_by_dni(self,db,dni):
+        try:
+            cursor = db.connection.cursor()
+            sql="""SELECT id, username, password, nombre, apellido, dni, telefono, mail, fecha_nacimiento, tiene_dosis, factor_riesgo FROM users 
+            WHERE dni = '{}'""".format(dni)
+            cursor.execute(sql)
+            row = cursor.fetchone()
+            if row != None:
+                # id, username, password, nombre, apellido, dni, telefono, mail, fecha_nacimiento, tiene_dosis, factor_riesgo 
+                return User(row[0],row[1],None,row[2], row[3],row[4],row[5],row[6],row[7],row[8],row[9])
+            else:
+                return None
+        except Exception as ex:
+            raise Exception(ex)
+
+    @classmethod
+    def get_by_mail(self,db,mail):
+        try:
+            cursor = db.connection.cursor()
+            sql="""SELECT id, username, password, nombre, apellido, dni, telefono, mail, fecha_nacimiento, tiene_dosis, factor_riesgo FROM users 
+            WHERE mail = '{}'""".format(mail)
+            cursor.execute(sql)
+            row = cursor.fetchone()
+            if row != None:
+                # id, username, password, nombre, apellido, dni, telefono, mail, fecha_nacimiento, tiene_dosis, factor_riesgo 
+                return User(row[0],row[1],None,row[2], row[3],row[4],row[5],row[6],row[7],row[8],row[9])
+            else:
+                return None
+        except Exception as ex:
+            raise Exception(ex)
 
 
 
