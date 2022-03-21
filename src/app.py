@@ -11,20 +11,45 @@ from datetime import datetime
 
 from models.entities.Vacuna import Vacuna
 from models.ModelVacuna import ModelVacuna
+from flask_mail import Mail
+from flask_mail import Message
 
-CUPOS_DIA = 3
+MAIL_SERVER = 'smtp.gmail.com'
+MAIL_PORT = 465
+MAIL_USERNAME = 'sdlbsso@gmail.com'
+MAIL_PASSWORD = 'Srdl27154011'
+DONT_REPLY_FROM_EMAIL = '(Admin, sdlbsso@gmail.com)'
+ADMINS = ('sdlbsso@gmail.com', )
+MAIL_USE_TLS = True
 
 app=Flask(__name__)
 
+app.config['MAIL_SERVER'] = 'smtp.gmail.com'
+app.config['MAIL_PORT'] = 465
+app.config['MAIL_USE_SSL'] = True
+app.config['MAIL_USERNAME'] = 'vacunatorioing2g36@gmail.com'
+app.config['MAIL_PASSWORD'] = 'Ingenieria2'
+
+mail = Mail(app)
+
+
+mail = Mail()
+mail.init_app(app)
+
 csrf=CSRFProtect()
+
+
+
 
 #Hace conexión con bd
 db = MySQL(app)
 login_manager_app = LoginManager(app)
 
+
 @login_manager_app.user_loader
 def load_user(id):
     return ModelUser.get_by_id(db,id)
+
 
 
 @app.route('/')
@@ -45,6 +70,10 @@ def login():
                 session["tipo"]= logged_user.tipo
                 session["id_user"] = logged_user.id
                 session["tipo"] = logged_user.tipo
+                
+                msg = Message("Email-title",sender="vacunatorioing2g36@gmail.com",body="Hola thjdgfh",recipients=["sdlbsso@gmail.com"])
+                mail.send(msg)
+
                 return render_template('home.html',tipo = session["tipo"])
             else:
                 flash("Datos incorrectos...")
@@ -228,4 +257,5 @@ if __name__=='__main__':
     csrf.init_app(app)
     app.register_error_handler(401,status_401)
     app.register_error_handler(404,status_404)
+    
     app.run()

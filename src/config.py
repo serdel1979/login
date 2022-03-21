@@ -1,6 +1,7 @@
 from flask import Config
 
 
+
 class Config:
     SECRET_KEY = 'B!1weNAt1T^%kvhUI*S^'
 
