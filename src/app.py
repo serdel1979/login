@@ -14,14 +14,6 @@ from models.ModelVacuna import ModelVacuna
 from flask_mail import Mail
 from flask_mail import Message
 
-MAIL_SERVER = 'smtp.gmail.com'
-MAIL_PORT = 465
-MAIL_USERNAME = 'sdlbsso@gmail.com'
-MAIL_PASSWORD = 'Srdl27154011'
-DONT_REPLY_FROM_EMAIL = '(Admin, sdlbsso@gmail.com)'
-ADMINS = ('sdlbsso@gmail.com', )
-MAIL_USE_TLS = True
-
 app=Flask(__name__)
 
 app.config['MAIL_SERVER'] = 'smtp.gmail.com'
