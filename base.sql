@@ -25,7 +25,7 @@ CREATE TABLE IF NOT EXISTS `solicitud_turnos` (
   `fecha_solicitud` date DEFAULT NULL,
   `fecha_turno` date DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=10 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=12 DEFAULT CHARSET=utf8;
 
 -- La exportación de datos fue deseleccionada.
 -- Volcando estructura para tabla dbuser.users
@@ -43,14 +43,13 @@ CREATE TABLE IF NOT EXISTS `users` (
   `factor_riesgo` int(11) NOT NULL,
   `tipo` int(10) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=29 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=33 DEFAULT CHARSET=utf8;
 
 -- La exportación de datos fue deseleccionada.
 -- Volcando estructura para tabla dbuser.vacunas
 CREATE TABLE IF NOT EXISTS `vacunas` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `vacuna` varchar(100) NOT NULL,
-  `cantidad` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8;
 
