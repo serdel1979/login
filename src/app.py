@@ -71,7 +71,7 @@ def login():
                 session["id_user"] = logged_user.id
                 session["tipo"] = logged_user.tipo
                 
-                msg = Message("Email-title",sender="vacunatorioing2g36@gmail.com",body="Hola thjdgfh",recipients=["sdlbsso@gmail.com"])
+                msg = Message("Email-title",sender="vacunatorioing2g36@gmail.com",body="Hola te llegó la hora",recipients=["sdlbsso@gmail.com"])
                 mail.send(msg)
 
                 return render_template('home.html',tipo = session["tipo"])
